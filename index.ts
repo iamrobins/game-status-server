@@ -6,6 +6,9 @@ import connectDB from "./config/db";
 // Routes
 import auth from "./routes/auth";
 import games from "./routes/normal/games";
+import comments from "./routes/normal/comments";
+
+import gamesAdmin from "./routes/admin/games";
 
 connectDB();
 const app: Express = express(); // include before  other routes
@@ -16,6 +19,10 @@ app.use("/api/auth", auth);
 
 // Normal
 app.use("/api/games", games);
+app.use("/api/comments", comments);
+
+// Admin
+app.use("/api/admin/games", gamesAdmin);
 
 app.get("/", (req: Request, res: Response) => {
   res.send("Express + TypeScript Servers");
