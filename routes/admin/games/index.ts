@@ -1,9 +1,10 @@
 import express from "express";
-import verifyUser from "../../../middlewares/verifyUser";
-import { postGame } from "./controller";
+import verifyAdmin from "../../../middlewares/verifyAdmin";
+import { getGames, postGame } from "./controller";
 const router = express.Router();
 
 // GET ROUTES
-router.route("/").post(postGame);
+router.route("/").get(verifyAdmin, getGames);
+router.route("/").post(verifyAdmin, postGame);
 
 export default router;
