@@ -8,10 +8,9 @@ const gameSchema = new mongoose.Schema(
     company: { type: String, required: true },
     releaseDate: { type: Date, required: true },
     status: { type: Boolean, required: true, default: false },
-    media: [{ type: String, required: true }],
-    picture: { type: String, required: true },
+    picture: { type: String, required: true, default: "" },
     views: { type: Number, required: true, default: 0 },
-    slug: { type: String, required: true },
+    slug: { type: String, required: true, unique: true },
   },
 
   {
