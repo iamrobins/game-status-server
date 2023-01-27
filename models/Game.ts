@@ -8,7 +8,7 @@ const gameSchema = new mongoose.Schema(
     company: { type: String, required: true },
     releaseDate: { type: Date, required: true },
     status: { type: Boolean, required: true, default: false },
-    picture: { type: String, required: true, default: "" },
+    picture: { type: String, required: false, default: "" },
     views: { type: Number, required: true, default: 0 },
     slug: { type: String, required: true, unique: true },
   },
