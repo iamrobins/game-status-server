@@ -16,7 +16,7 @@ export async function getGames(req: Request, res: Response) {
   try {
     let games: any = [];
     if (type === "hotGames") {
-      games = await Game.find().sort({ createdAt: -1 }).limit(5);
+      games = await Game.find().sort({ createdAt: -1 }).limit(7);
     } else if (type === "popularGames") {
       games = await Game.find().sort({ views: -1 }).limit(5);
     } else if (type === "upcomingGames") {
@@ -35,6 +35,8 @@ export async function getGame(req: Request, res: Response) {
   try {
     const game = await Game.findOne({ slug });
     if (!game) throw Error("game not found");
+    game.views += 1;
+    await game.save();
     return res.json({ success: true, data: game });
   } catch (e) {
     return res.status(400).json({ success: false, data: e });
