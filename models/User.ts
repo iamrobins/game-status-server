@@ -4,6 +4,7 @@ const userSchema = new mongoose.Schema(
   {
     firebaseId: { type: String, required: true },
     admin: { type: Boolean, default: false },
+    email: { type: String, required: true },
   },
 
   {

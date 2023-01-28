@@ -17,6 +17,7 @@ const authUser = async (req: any, res: Response) => {
     }
     await User.create({
       firebaseId: firebaseId,
+      email: req.params.email,
     });
 
     return res
@@ -27,6 +28,6 @@ const authUser = async (req: any, res: Response) => {
   }
 };
 
-router.route("/").get(verifyUser, authUser);
+router.route("/:email").get(verifyUser, authUser);
 
 export default router;
