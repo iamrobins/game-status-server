@@ -9,6 +9,7 @@ import user from "./routes/user";
 
 import games from "./routes/normal/games";
 import comments from "./routes/normal/comments";
+import chats from "./routes/normal/chats";
 
 import gamesAdmin from "./routes/admin/games";
 
@@ -23,6 +24,7 @@ app.use("/api/user-info", user);
 // Normal
 app.use("/api/games", games);
 app.use("/api/comments", comments);
+app.use("/api/chats", chats);
 
 // Admin
 app.use("/api/admin/games", gamesAdmin);
