@@ -27,7 +27,7 @@ export async function postGame(req: any, res: Response) {
   const gameBody = req.body;
 
   try {
-    gameBody.firebaseId = req.firebaseId;
+    // gameBody.firebaseId = req.firebaseId;
     await Game.create(gameBody);
     return res.json({ success: true });
   } catch (e) {

@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 const gameSchema = new mongoose.Schema(
   {
-    firebaseId: { type: String, required: true },
+    // firebaseId: { type: String, required: true },
     name: { type: String, required: true },
     description: { type: String, required: true },
     company: { type: String, required: true },
