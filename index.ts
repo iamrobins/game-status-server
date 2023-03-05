@@ -12,11 +12,13 @@ import comments from "./routes/normal/comments";
 import chats from "./routes/normal/chats";
 
 import gamesAdmin from "./routes/admin/games";
+import morgan from "morgan";
 
 connectDB();
 const app: Express = express(); // include before  other routes
 app.use(cors());
 app.use(express.json());
+app.use(morgan("combined"));
 
 app.use("/api/auth", auth);
 app.use("/api/user-info", user);
