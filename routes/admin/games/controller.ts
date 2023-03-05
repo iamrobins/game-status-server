@@ -1,10 +1,13 @@
 import { Response } from "express";
 import Game from "../../../models/Game";
+import Cache from "../../../cache";
 
 export async function getGames(req: any, res: Response) {
   try {
     const games = await Game.find({});
     if (!games) throw Error("Games not found");
+    const gamesCache = Cache.getInstance();
+    gamesCache.setCachedGames(games);
     res.status(200).json({ success: true, data: games });
   } catch (e) {
     return res.status(400).json({ success: false, data: e });

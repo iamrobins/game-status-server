@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import Game from "../../../models/Game";
+import Cache from "../../../cache";
 
 // 1. Hot Games (recently uploaded on site)
 // 2. Popular Games (by views)
@@ -7,13 +8,23 @@ import Game from "../../../models/Game";
 
 export async function searchGames(req: Request, res: Response) {
   try {
-    if (!req.query.keyword) return res.status(400).json({ success: false });
-    if (req.query.keyword.length! < 3)
-      return res.status(400).json({ success: false });
+    const keyword = req.query.keyword;
+    if (!keyword) return res.status(400).json({ success: false });
+    if (keyword.length! < 3) return res.status(400).json({ success: false });
 
-    const games = await Game.find({
-      name: { $regex: "^" + req.query.keyword, $options: "i" },
-    });
+    const games = Cache.getInstance()
+      .getCachedGames()
+      .filter((game: any) => game.name.toLowerCase().includes(keyword))
+      .map((game: any) => ({
+        _id: game._id,
+        name: game.name,
+        slug: game.slug,
+      }));
+
+    // if (games.length === 0)
+    //   games = await Game.find({
+    //     name: { $regex: "^" + req.query.keyword, $options: "i" },
+    //   }).select("_id name slug");
 
     return res.json({ success: true, data: games });
   } catch (e) {
