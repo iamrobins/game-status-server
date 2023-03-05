@@ -5,6 +5,22 @@ import Game from "../../../models/Game";
 // 2. Popular Games (by views)
 // 3. Upcoming Games (by release date)
 
+export async function searchGames(req: Request, res: Response) {
+  try {
+    if (!req.query.keyword) return res.status(400).json({ success: false });
+    if (req.query.keyword.length! < 3)
+      return res.status(400).json({ success: false });
+
+    const games = await Game.find({
+      name: { $regex: "^" + req.query.keyword, $options: "i" },
+    });
+
+    return res.json({ success: true, data: games });
+  } catch (e) {
+    return res.status(400).json({ success: false, data: e });
+  }
+}
+
 export async function getGames(req: Request, res: Response) {
   const type = req.query.type;
   if (
@@ -25,7 +41,7 @@ export async function getGames(req: Request, res: Response) {
     return res.json({ success: true, data: games });
   } catch (e) {
     console.log(e);
-    return res.status(400).json({ success: true, data: e });
+    return res.status(400).json({ success: false, data: e });
   }
 }
 
