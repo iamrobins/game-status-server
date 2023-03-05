@@ -13,12 +13,20 @@ import chats from "./routes/normal/chats";
 
 import gamesAdmin from "./routes/admin/games";
 import morgan from "morgan";
+// import os from "os";
 
 connectDB();
 const app: Express = express(); // include before  other routes
 app.use(cors());
 app.use(express.json());
-app.use(morgan("combined"));
+app.use(
+  morgan(":method :url :status :res[content-length] - :response-time ms")
+);
+// app.use((req, res, next) => {
+//   console.log("Total Memory: ", Math.floor(os.totalmem() / 1e6), "MB");
+//   console.log("Free Memory: ", Math.floor(os.freemem() / 1e6), "MB");
+//   next();
+// });
 
 app.use("/api/auth", auth);
 app.use("/api/user-info", user);
